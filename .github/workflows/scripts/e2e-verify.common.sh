@@ -118,7 +118,7 @@ e2e_verify_decoded_token() {
 
   # Non-GitHub's information.
   _e2e_verify_query "$decoded_token" "delegator_generic_slsa3.yml" '.builder.audience'
-  _e2e_verify_query "$decoded_token" "ubuntu-latest" '.builder.runner_label'
+  _e2e_verify_query "$decoded_token" "ubuntu-26.04" '.builder.runner_label'
   _e2e_verify_query "$decoded_token" "true" '.builder.rekor_log_public'
   _e2e_verify_query "$decoded_token" "./actions/build-artifacts-composite" '.tool.actions.build_artifacts.path'
   _e2e_verify_query "$decoded_token" "${CHECKOUT_FETCH_DEPTH}" '.source.checkout.fetch_depth'

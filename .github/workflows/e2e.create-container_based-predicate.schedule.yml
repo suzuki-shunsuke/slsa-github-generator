@@ -35,7 +35,7 @@ jobs:
       repository: ${{ steps.detect.outputs.repository }}
       ref: ${{ steps.detect.outputs.ref }}
       workflow: ${{ steps.detect.outputs.workflow }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     permissions:
       id-token: write # Needed to detect the current reusable repository and ref.
     steps:
@@ -64,7 +64,7 @@ jobs:
 
   if-succeed:
     needs: [predicate]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     # We use `== 'failure'` instead of ` != 'success'` because we want to ignore skipped jobs, if there are any.
     if: github.event_name != 'workflow_dispatch' && needs.predicate.result != 'failure'
     permissions:
@@ -79,7 +79,7 @@ jobs:
 
   if-failed:
     needs: [predicate]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     if: always() && github.event_name != 'workflow_dispatch' && needs.predicate.result == 'failure'
     permissions:
       contents: read

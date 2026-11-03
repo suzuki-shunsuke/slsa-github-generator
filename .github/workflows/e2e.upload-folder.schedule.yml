@@ -32,7 +32,7 @@ env:
 
 jobs:
   secure-upload-folder:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     outputs:
       sha256: ${{ steps.upload.outputs.sha256 }}
       sha256-noroot: ${{ steps.upload-noroot.outputs.sha256 }}
@@ -98,7 +98,7 @@ jobs:
 
   secure-download-folder:
     needs: [secure-upload-folder]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
@@ -173,7 +173,7 @@ jobs:
 
   if-succeed:
     needs: [secure-upload-folder, secure-download-folder]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     # We use `== 'failure'` instead of ` != 'success'` because we want to ignore skipped jobs, if there are any.
     if: github.event_name != 'workflow_dispatch' && needs.secure-upload-folder.result != 'failure' && needs.secure-download-folder.result != 'failure'
     permissions:
@@ -188,7 +188,7 @@ jobs:
 
   if-failed:
     needs: [secure-upload-folder, secure-download-folder]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     if: always() && github.event_name != 'workflow_dispatch' && (needs.secure-upload-folder.result == 'failure' || needs.secure-download-folder.result == 'failure')
     permissions:
       contents: read

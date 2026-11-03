@@ -105,7 +105,7 @@ jobs:
       outcome: ${{ steps.final.outputs.outcome }}
       repository: ${{ steps.detect.outputs.repository }}
       ref: ${{ steps.detect.outputs.ref }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     permissions:
       id-token: write # Needed to detect the current reusable repository and ref.
     steps:
@@ -134,7 +134,7 @@ jobs:
   generator:
     outputs:
       outcome: ${{ steps.final.outputs.outcome }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [detect-env]
     permissions:
       id-token: write # Needed to get OIDC token for keyless signing, and for GCP Auth.
@@ -298,7 +298,7 @@ jobs:
   final:
     outputs:
       outcome: ${{ steps.final.outputs.outcome }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [detect-env, generator]
     # Note: always run even if needed jobs are skipped.
     if: always()

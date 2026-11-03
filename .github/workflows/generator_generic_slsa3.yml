@@ -114,7 +114,7 @@ jobs:
       outcome: ${{ steps.final.outputs.outcome }}
       repository: ${{ steps.detect.outputs.repository }}
       ref: ${{ steps.detect.outputs.ref }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     permissions:
       id-token: write # Needed to detect the current reusable repository and ref.
     steps:
@@ -146,7 +146,7 @@ jobs:
       provenance-sha256: ${{ steps.sign-prov.outputs.provenance-sha256 }}
       provenance-name: ${{ steps.sign-prov.outputs.provenance-name }}
       subject-artifact-name: ${{ steps.metadata.outputs.artifact_name }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [detect-env]
     permissions:
       id-token: write # Needed to create an OIDC token for keyless signing.
@@ -260,7 +260,7 @@ jobs:
     outputs:
       outcome: ${{ steps.final.outputs.outcome }}
       release-id: ${{ steps.release.outputs.id }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [detect-env, generator]
     permissions:
       contents: write # Needed to write artifacts to a release.
@@ -306,7 +306,7 @@ jobs:
   final:
     outputs:
       outcome: ${{ steps.final.outputs.outcome }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [detect-env, generator, upload-assets]
     # Note: always run even if needed jobs are skipped.
     if: always()

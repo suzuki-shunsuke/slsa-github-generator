@@ -40,7 +40,7 @@ jobs:
 
   verify:
     needs: build-container-based
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     env:
       HEAD_SHA: ${{ github.event.pull_request.head.sha }}
       GITHUB_HEAD_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}

@@ -85,7 +85,7 @@ jobs:
   rng:
     outputs:
       value: ${{ steps.rng.outputs.random }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Generate random 16-byte value (32-char hex encoded)
         id: rng
@@ -93,7 +93,7 @@ jobs:
 
   # verify-token verifies the slsa token.
   verify-token:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [rng]
     permissions:
       actions: read # For getting workflow run on private repos.
@@ -122,7 +122,7 @@ jobs:
   # privacy-check verifies that the user has agreed for their repository name to be made public, via the rekor log.
   privacy-check:
     needs: [rng, verify-token]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Check private repos
         uses: slsa-framework/slsa-github-generator/.github/actions/privacy-check@main
@@ -133,11 +133,11 @@ jobs:
   # build-artifacts-ubuntu builds the projects.
   build-artifacts-ubuntu:
     needs: [rng, verify-token, privacy-check]
-    if: fromJson(needs.verify-token.outputs.slsa-verified-token).builder.runner_label == 'ubuntu-latest'
+    if: fromJson(needs.verify-token.outputs.slsa-verified-token).builder.runner_label == 'ubuntu-26.04'
     outputs:
       outputs: ${{ toJson(steps.build-artifacts-action.outputs) }}
       artifacts-layout-sha256: ${{ steps.upload.outputs.sha256 }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     permissions:
       contents: read # To checkout private repos.
     steps:
@@ -229,7 +229,7 @@ jobs:
       attestations-download-sha256: "${{ steps.upload.outputs.sha256 }}"
     permissions:
       id-token: write # Needed to sign
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Download the artifact layout file
         uses: slsa-framework/slsa-github-generator/.github/actions/secure-download-artifact@main
@@ -292,7 +292,7 @@ jobs:
 
   # cleanup deletes internal artifacts used by the delegator workflow
   cleanup:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [rng, generate-provenance]
     env:
       RNG: ${{ needs.rng.outputs.value }}

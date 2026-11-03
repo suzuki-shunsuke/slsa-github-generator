@@ -67,7 +67,7 @@ jobs:
       id-token: write # For token creation.
     outputs:
       slsa-token: ${{ steps.generate.outputs.slsa-token }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Generate the token
         id: generate
@@ -75,7 +75,7 @@ jobs:
         with:
           slsa-workflow-recipient: "delegator_lowperms-generic_slsa3.yml"
           slsa-rekor-log-public: ${{ inputs.rekor-log-public }}
-          slsa-runner-label: "ubuntu-latest"
+          slsa-runner-label: "ubuntu-26.04"
           slsa-build-action-path: "./internal/builders/gradle"
           slsa-workflow-inputs: ${{ toJson(inputs) }}
 

@@ -43,7 +43,7 @@ jobs:
     # branches for required status checks. It should have a unique name among
     # other pre-submits.
     name: verify generic provenance
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [build]
     if: ${{ always() }}
     steps:
@@ -74,7 +74,7 @@ jobs:
     # branches for required status checks. It should have a unique name among
     # other pre-submits.
     name: verify generic provenance (continue-on-error)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [build-continue-no-error]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -105,7 +105,7 @@ jobs:
     # branches for required status checks. It should have a unique name among
     # other pre-submits.
     name: verify generic provenance (continue-on-error invalid subjects)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [build, build-continue-invalid-subjects]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
